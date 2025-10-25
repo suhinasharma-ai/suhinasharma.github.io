@@ -1,0 +1,14 @@
+---
+title: "Suhina's Website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# Hello!
+
+I am a graduate student in Biostatistics (Public Health Data Science track) at Columbia University and UC Berkeley Bioengineering alum. This is my personal website where you can learn more about my work.
+
+![](images/suhina.jpg)
+

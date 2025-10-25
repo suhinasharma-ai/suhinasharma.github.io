@@ -1,0 +1,78 @@
+---
+title: "Academic & Professional Experiences"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+
+Below is a summary of my academic and professional experiences
+
+Go back to the [homepage](index.html)
+
+
+---
+title: "Academic and Professional Experiences"
+output: distill::distill_article
+---
+
+# Summary
+Master’s student in Public Health Data Science at Columbia University. Experienced in advanced analytics, statistical modeling, and machine learning applied to healthcare and life sciences. Passionate about translating data into patient-centered, equitable solutions.
+
+# Education
+**Columbia University** — M.S. Biostatistics, Public Health Data Science (Expected 2027)  
+
+**University of California, Berkeley** — B.S. Bioengineering, Minor in Data Science, Certificate in Entrepreneurship & Technology (2021–2025)  
+
+*Relevant Coursework:* Biostatistics, Probability & Statistics for Data Science, Data Science, Epidemiology, Machine Learning, Healthcare Analytics, Python, SQL.
+
+# Technical Skills
+- **Languages & Tools:** Python, R, SQL  
+- **Libraries/Frameworks:** NumPy, Pandas, Matplotlib, Plotly, PyTorch, TensorFlow, scikit-learn, PostgresQL, Tidyverse, Shiny  
+- **Statistical & ML Methods:** ANOVA, Chi-Squared Tests, Linear & Logistic Regression, Hypothesis Testing, Random Forests, Gradient Boosting  
+- **Visualization & Productivity:** Power BI, Canva, Excel, Google Sheets, Smartsheet, Word, PowerPoint  
+
+# Research Experience
+
+**UCSF Weill Institute for Neurosciences, Bove Lab** — Research Assistant  
+*Jan 2025 – May 2025*  
+- Utilized Audacity to conduct quality checks and manual review of clinical audio recordings in a study of speech patterns in Multiple Sclerosis (MS) patients.
+- Identified and annotated speech inconsistencies, such as disfluencies, pauses, and articulation changes, to support research on speech-related biomarkers.
+
+**Henry Wills Neuroscience Institute, Jagust Lab** — Undergraduate Research Assistant  
+*Oct 2022 – Dec 2024*  
+- Studied effects of socioeconomic status on brain structure and memory  
+- Applied R and Python for statistical modeling, moderation analysis, and predictive analytics  
+- Cleaned 10+ large CSV datasets, performed EDA, and presented findings to stakeholders  
+- Assisted recruiting for participants through in-person and virtual methods.
+
+**Gladstone Institutes, Paz Lab, UCSF** — Undergraduate Research Assistant  
+*Nov 2024 – May 2025*  
+- Studied the impact of oxygen tension on neuronal loss after Traumatic Brain Injury (TBI)  
+- Performed immunohistochemistry and chromogenic NeuN staining in rodent models  
+- Implemented image analysis pipeline for neuronal quantification using FIJI and CellProfiler  
+- Presented findings to the entire lab in a final presentation  
+
+# Professional Experience
+
+**Ultragenyx, Translational Research Intern** — South San Francisco, Summer 2024  
+- Standardized and automated Excel spreadsheets tracking 100+ R&D opportunities  
+- Developed Smartsheet dashboard to track portfolio performance of current and past rare disease programs
+- Delivered reports guiding leadership in drug development decisions  
+- Proposed therapeutic strategy for Koolen de Vries Syndrome integrating clinical insights  
+- Engaged with interdisciplinary team of scientists, clinicians, and project managers to integrate clinical and business perspectives.
+
+# Projects & Leadership
+- **o	Evaluating Dropout and L2 Regularization for Generalizability of ANI-1 Neural Network: ** ▪	Investigate effects of dropout and L2 Regularization on training and potential of ANI-style neural network potentials
+- **Carbon Nanotube Modeling for Alzheimer’s:** Modeled acetylcholine delivery using COMSOL  
+- **Motor Impairment Analysis in Parkinson’s Disease:** Statistical & ML analysis to classify diagnoses  
+- Berkeley Pharma Tech Intern — Literature review on novel depression treatments, co-authored publication  
+- First Principles Advisory Group — Life-sciences consulting seminar  
+- Neurotechnology @ Berkeley — Podcast interviews with neuroscience leaders to increase neurotechnology knowledge at UC Berkeley community.
+- ThinkNeuro Intern — Developed infographics and conducted statistical data analysis on opioid use, improving community health.
+
+# Additional Skills
+Data Analysis, Predictive Analytics, Statistical Modeling, ML, Outcomes Research, Public Health, Bioengineering, Project Management, Market Research, Large Dataset Handling, Data Visualization, Compliance, Technical Writing, Leadership, Stakeholder Engagement.
+
+
