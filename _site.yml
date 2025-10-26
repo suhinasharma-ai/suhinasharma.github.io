@@ -5,6 +5,8 @@ navbar:
   right:
     - text: "Academic and Professional Experiences"
       href: academicandprofessional.html
+    - text: "Dashboard"
+      href: flexdashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<ss7636@cumc.columbia.edu>
     - icon: fa-github fa-lg
