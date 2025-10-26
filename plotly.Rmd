@@ -1,0 +1,126 @@
+---
+title: "plotly"
+output: html_document
+date: "2025-10-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(plotly)
+library(p8105.datasets)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+```
+
+```{r}
+data("instacart")
+instacart
+```
+
+```{r}
+
+intacart_items_ordered = instacart |> 
+  count(aisle, name = "items_ordered") |> 
+  arrange(desc(items_ordered))
+
+
+intacart_items_ordered  |> 
+  filter(items_ordered > 10000) |> 
+  
+  plot_ly(x = ~reorder(aisle, -items_ordered), y = ~items_ordered, type = "bar",marker = list(color = ~items_ordered, colorscale = "Viridis")
+  ) |>
+  layout(
+    title = "Items Ordered per Aisle (Above 10,000 Orders)",
+    xaxis = list(title = "Aisle", tickangle = -45),
+    yaxis = list(title = "Number of Items Ordered"),
+    margin = list(b = 120)  # extra space for rotated x labels
+  )
+```
+```{r}
+mean_hour = instacart |> 
+  filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) |> 
+  select(product_name, order_hour_of_day, order_dow) |> 
+  group_by(product_name, order_dow) |> 
+  summarize(mean_hour = round(mean(order_hour_of_day), 2)) |> 
+    mutate(
+    order_dow = as.integer(order_dow),
+    order_dow = case_when(
+      order_dow == 0 ~ "Sunday",
+      order_dow == 1 ~ "Monday",
+      order_dow == 2 ~ "Tuesday",
+      order_dow == 3 ~ "Wednesday",
+      order_dow == 4 ~ "Thursday",
+      order_dow == 5 ~ "Friday",
+      order_dow == 6 ~ "Saturday"
+    ),
+order_dow = factor(order_dow,
+      levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+  )
+
+plot_ly(
+  data = mean_hour,
+  x = ~order_dow,
+  y = ~mean_hour,
+  color = ~product_name,
+  type = 'scatter',
+  mode = 'lines+markers',
+  text = ~paste(
+    "Product:", product_name,
+    "<br>Day:", order_dow,
+    "<br>Average Hour:", mean_hour
+  ),
+  hoverinfo = "text"
+) |>
+  layout(
+    title = "Average Order Hour by Day for Selected Products",
+    xaxis = list(title = "Day of Week", tickangle = -45),
+    yaxis = list(title = "Average Order Hour (24-hour format)"),
+    legend = list(title = list(text = "<b>Product</b>"))
+  )
+
+```
+
+
+```{r}
+instart_department = instacart |> 
+  group_by(department) |> 
+  summarise(
+    reorder_rate = mean(reordered, na.rm = TRUE),
+    .groups = "drop"
+  ) |> 
+  arrange(desc(reorder_rate))
+
+instart_department 
+
+plot_ly(
+  data = instart_department,
+  x = ~reorder(as.factor(department), reorder_rate),
+  y = ~reorder_rate,
+  type = 'bar',
+  marker = list(color = ~reorder_rate, colorscale = 'Viridis')
+) |>
+  layout(
+    title = "Reorder Rate by Department",
+    xaxis = list(title = "Department", tickangle = -45),
+    yaxis = list(title = "Reorder Rate")
+  )
+
+  
+```
+

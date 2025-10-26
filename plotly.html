@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2025-10-25" />
+
+<title>plotly</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.11.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="academicandprofessional.html">Academic and Professional Experiences</a>
+</li>
+<li>
+  <a href="mailto:&lt;ss7636@cumc.columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/suhinasharma-ai/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://www.linkedin.com/in/suhina-sharma-aa59761b2">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">plotly</h1>
+<h4 class="date">2025-10-25</h4>
+
+</div>
+
+
+<pre class="r"><code>data(&quot;instacart&quot;)
+instacart</code></pre>
+<pre><code>## # A tibble: 1,384,617 × 15
+##    order_id product_id add_to_cart_order reordered user_id eval_set order_number
+##       &lt;int&gt;      &lt;int&gt;             &lt;int&gt;     &lt;int&gt;   &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+##  1        1      49302                 1         1  112108 train               4
+##  2        1      11109                 2         1  112108 train               4
+##  3        1      10246                 3         0  112108 train               4
+##  4        1      49683                 4         0  112108 train               4
+##  5        1      43633                 5         1  112108 train               4
+##  6        1      13176                 6         0  112108 train               4
+##  7        1      47209                 7         0  112108 train               4
+##  8        1      22035                 8         1  112108 train               4
+##  9       36      39612                 1         0   79431 train              23
+## 10       36      19660                 2         1   79431 train              23
+## # ℹ 1,384,607 more rows
+## # ℹ 8 more variables: order_dow &lt;int&gt;, order_hour_of_day &lt;int&gt;,
+## #   days_since_prior_order &lt;int&gt;, product_name &lt;chr&gt;, aisle_id &lt;int&gt;,
+## #   department_id &lt;int&gt;, aisle &lt;chr&gt;, department &lt;chr&gt;</code></pre>
+<pre class="r"><code>intacart_items_ordered = instacart |&gt; 
+  count(aisle, name = &quot;items_ordered&quot;) |&gt; 
+  arrange(desc(items_ordered))
+
+
+intacart_items_ordered  |&gt; 
+  filter(items_ordered &gt; 10000) |&gt; 
+  
+  plot_ly(x = ~reorder(aisle, -items_ordered), y = ~items_ordered, type = &quot;bar&quot;,marker = list(color = ~items_ordered, colorscale = &quot;Viridis&quot;)
+  ) |&gt;
+  layout(
+    title = &quot;Items Ordered per Aisle (Above 10,000 Orders)&quot;,
+    xaxis = list(title = &quot;Aisle&quot;, tickangle = -45),
+    yaxis = list(title = &quot;Number of Items Ordered&quot;),
+    margin = list(b = 120)  # extra space for rotated x labels
+  )</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-ff4133b41d37636718f1" style="width:90%;height:345.6px;"></div>
+<script type="application/json" data-for="htmlwidget-ff4133b41d37636718f1">{"x":{"visdat":{"839b551559bd":["function () ","plotlyVisDat"]},"cur_data":"839b551559bd","attrs":{"839b551559bd":{"x":{},"y":{},"marker":{"color":{},"colorscale":"Viridis"},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":120,"l":60,"t":25,"r":10},"title":"Items Ordered per Aisle (Above 10,000 Orders)","xaxis":{"domain":[0,1],"automargin":true,"title":"Aisle","tickangle":-45,"type":"category","categoryorder":"array","categoryarray":["fresh vegetables","fresh fruits","packaged vegetables fruits","yogurt","packaged cheese","water seltzer sparkling water","milk","chips pretzels","soy lactosefree","bread","refrigerated","ice cream ice","frozen produce","eggs","crackers","frozen meals","energy granola bars","lunch meat","soft drinks","cereal","fresh herbs","fresh dips tapenades","soup broth bouillon","juice nectars","packaged produce","baby food formula","baking ingredients","other creams cheeses","hot dogs bacon sausage","paper goods","canned jarred vegetables","nuts seeds dried fruit","cream","spreads","canned meals beans","candy chocolate","dry pasta","oils vinegars","butter"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Items Ordered"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["fresh vegetables","fresh fruits","packaged vegetables fruits","yogurt","packaged cheese","water seltzer sparkling water","milk","chips pretzels","soy lactosefree","bread","refrigerated","ice cream ice","frozen produce","eggs","crackers","frozen meals","energy granola bars","lunch meat","soft drinks","cereal","fresh herbs","fresh dips tapenades","soup broth bouillon","juice nectars","packaged produce","baby food formula","baking ingredients","other creams cheeses","hot dogs bacon sausage","paper goods","canned jarred vegetables","nuts seeds dried fruit","cream","spreads","canned meals beans","candy chocolate","dry pasta","oils vinegars","butter"],"y":[150609,150473,78493,55240,41699,36617,32644,31269,26240,23635,23228,22676,22453,19875,19592,18221,17449,16957,16279,16201,16052,15142,15109,14350,13460,13198,13088,12820,12813,12694,12679,12532,12356,12102,11774,11453,11298,10620,10575],"marker":{"color":[150609,150473,78493,55240,41699,36617,32644,31269,26240,23635,23228,22676,22453,19875,19592,18221,17449,16957,16279,16201,16052,15142,15109,14350,13460,13198,13088,12820,12813,12694,12679,12532,12356,12102,11774,11453,11298,10620,10575],"colorscale":"Viridis","line":{"color":"rgba(31,119,180,1)"}},"type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>mean_hour = instacart |&gt; 
+  filter(product_name %in% c(&quot;Pink Lady Apples&quot;, &quot;Coffee Ice Cream&quot;)) |&gt; 
+  select(product_name, order_hour_of_day, order_dow) |&gt; 
+  group_by(product_name, order_dow) |&gt; 
+  summarize(mean_hour = round(mean(order_hour_of_day), 2)) |&gt; 
+    mutate(
+    order_dow = as.integer(order_dow),
+    order_dow = case_when(
+      order_dow == 0 ~ &quot;Sunday&quot;,
+      order_dow == 1 ~ &quot;Monday&quot;,
+      order_dow == 2 ~ &quot;Tuesday&quot;,
+      order_dow == 3 ~ &quot;Wednesday&quot;,
+      order_dow == 4 ~ &quot;Thursday&quot;,
+      order_dow == 5 ~ &quot;Friday&quot;,
+      order_dow == 6 ~ &quot;Saturday&quot;
+    ),
+order_dow = factor(order_dow,
+      levels = c(&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;))
+  )</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;product_name&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre class="r"><code>plot_ly(
+  data = mean_hour,
+  x = ~order_dow,
+  y = ~mean_hour,
+  color = ~product_name,
+  type = &#39;scatter&#39;,
+  mode = &#39;lines+markers&#39;,
+  text = ~paste(
+    &quot;Product:&quot;, product_name,
+    &quot;&lt;br&gt;Day:&quot;, order_dow,
+    &quot;&lt;br&gt;Average Hour:&quot;, mean_hour
+  ),
+  hoverinfo = &quot;text&quot;
+) |&gt;
+  layout(
+    title = &quot;Average Order Hour by Day for Selected Products&quot;,
+    xaxis = list(title = &quot;Day of Week&quot;, tickangle = -45),
+    yaxis = list(title = &quot;Average Order Hour (24-hour format)&quot;),
+    legend = list(title = list(text = &quot;&lt;b&gt;Product&lt;/b&gt;&quot;))
+  )</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-0e5ae443de2d5a31557d" style="width:90%;height:345.6px;"></div>
+<script type="application/json" data-for="htmlwidget-0e5ae443de2d5a31557d">{"x":{"visdat":{"839b3dc927ee":["function () ","plotlyVisDat"]},"cur_data":"839b3dc927ee","attrs":{"839b3dc927ee":{"x":{},"y":{},"mode":"lines+markers","text":{},"hoverinfo":"text","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Average Order Hour by Day for Selected Products","xaxis":{"domain":[0,1],"automargin":true,"title":"Day of Week","tickangle":-45,"type":"category","categoryorder":"array","categoryarray":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Average Order Hour (24-hour format)"},"legend":{"title":{"text":"<b>Product<\/b>"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"y":[13.77,14.32,15.380000000000001,15.32,15.220000000000001,12.26,13.83],"mode":"lines+markers","text":["Product: Coffee Ice Cream <br>Day: Sunday <br>Average Hour: 13.77","Product: Coffee Ice Cream <br>Day: Monday <br>Average Hour: 14.32","Product: Coffee Ice Cream <br>Day: Tuesday <br>Average Hour: 15.38","Product: Coffee Ice Cream <br>Day: Wednesday <br>Average Hour: 15.32","Product: Coffee Ice Cream <br>Day: Thursday <br>Average Hour: 15.22","Product: Coffee Ice Cream <br>Day: Friday <br>Average Hour: 12.26","Product: Coffee Ice Cream <br>Day: Saturday <br>Average Hour: 13.83"],"hoverinfo":["text","text","text","text","text","text","text"],"type":"scatter","name":"Coffee Ice Cream","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"y":[13.44,11.359999999999999,11.699999999999999,14.25,11.550000000000001,12.779999999999999,11.94],"mode":"lines+markers","text":["Product: Pink Lady Apples <br>Day: Sunday <br>Average Hour: 13.44","Product: Pink Lady Apples <br>Day: Monday <br>Average Hour: 11.36","Product: Pink Lady Apples <br>Day: Tuesday <br>Average Hour: 11.7","Product: Pink Lady Apples <br>Day: Wednesday <br>Average Hour: 14.25","Product: Pink Lady Apples <br>Day: Thursday <br>Average Hour: 11.55","Product: Pink Lady Apples <br>Day: Friday <br>Average Hour: 12.78","Product: Pink Lady Apples <br>Day: Saturday <br>Average Hour: 11.94"],"hoverinfo":["text","text","text","text","text","text","text"],"type":"scatter","name":"Pink Lady Apples","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>instart_department = instacart |&gt; 
+  group_by(department) |&gt; 
+  summarise(
+    reorder_rate = mean(reordered, na.rm = TRUE),
+    .groups = &quot;drop&quot;
+  ) |&gt; 
+  arrange(desc(reorder_rate))
+
+instart_department </code></pre>
+<pre><code>## # A tibble: 21 × 2
+##    department   reorder_rate
+##    &lt;chr&gt;               &lt;dbl&gt;
+##  1 dairy eggs          0.675
+##  2 produce             0.665
+##  3 beverages           0.658
+##  4 bakery              0.634
+##  5 pets                0.630
+##  6 deli                0.618
+##  7 alcohol             0.607
+##  8 meat seafood        0.591
+##  9 snacks              0.581
+## 10 bulk                0.578
+## # ℹ 11 more rows</code></pre>
+<pre class="r"><code>plot_ly(
+  data = instart_department,
+  x = ~reorder(as.factor(department), reorder_rate),
+  y = ~reorder_rate,
+  type = &#39;bar&#39;,
+  marker = list(color = ~reorder_rate, colorscale = &#39;Viridis&#39;)
+) |&gt;
+  layout(
+    title = &quot;Reorder Rate by Department&quot;,
+    xaxis = list(title = &quot;Department&quot;, tickangle = -45),
+    yaxis = list(title = &quot;Reorder Rate&quot;)
+  )</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-a49d112ade419505654f" style="width:90%;height:345.6px;"></div>
+<script type="application/json" data-for="htmlwidget-a49d112ade419505654f">{"x":{"visdat":{"839b2847b7":["function () ","plotlyVisDat"]},"cur_data":"839b2847b7","attrs":{"839b2847b7":{"x":{},"y":{},"marker":{"color":{},"colorscale":"Viridis"},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Reorder Rate by Department","xaxis":{"domain":[0,1],"automargin":true,"title":"Department","tickangle":-45,"type":"category","categoryorder":"array","categoryarray":["personal care","pantry","international","missing","other","household","canned goods","dry goods pasta","babies","frozen","breakfast","bulk","snacks","meat seafood","alcohol","deli","pets","bakery","beverages","produce","dairy eggs"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Reorder Rate"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["dairy eggs","produce","beverages","bakery","pets","deli","alcohol","meat seafood","snacks","bulk","breakfast","frozen","babies","dry goods pasta","canned goods","household","other","missing","international","pantry","personal care"],"y":[0.67496579144993574,0.66461657300280874,0.65815548112165267,0.63421085258503118,0.63019790971758949,0.61789076787609221,0.60682386566630941,0.59085359817863858,0.58136326159748275,0.57836644591611475,0.5716610169491525,0.55929739310537108,0.54106150860049529,0.48782062872936738,0.48680527361695763,0.42716612015783917,0.38830083565459611,0.38152951157435461,0.37993614518568308,0.36308805790108567,0.33708854891052387],"marker":{"color":[0.67496579144993574,0.66461657300280874,0.65815548112165267,0.63421085258503118,0.63019790971758949,0.61789076787609221,0.60682386566630941,0.59085359817863858,0.58136326159748275,0.57836644591611475,0.5716610169491525,0.55929739310537108,0.54106150860049529,0.48782062872936738,0.48680527361695763,0.42716612015783917,0.38830083565459611,0.38152951157435461,0.37993614518568308,0.36308805790108567,0.33708854891052387],"colorscale":"Viridis","line":{"color":"rgba(31,119,180,1)"}},"type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
