@@ -1,5 +1,5 @@
 ---
-title: "Flexdashboard"
+title: "flexdashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -18,11 +18,10 @@ data("instacart")
 intacart_items_ordered = instacart |> 
   count(aisle, name = "items_ordered") |> 
   arrange(desc(items_ordered))
-
 ```
 
+Column {data-width=650}
 -----------------------------------------------------------------------
-
 
 ### Chart A
 
@@ -43,20 +42,78 @@ intacart_items_ordered |>
   )
 ```
 
-
-
 Column {data-width=350}
 -----------------------------------------------------------------------
 
 ### Chart B
 
 ```{r}
+mean_hour = instacart |> 
+  filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) |> 
+  select(product_name, order_hour_of_day, order_dow) |> 
+  group_by(product_name, order_dow) |> 
+  summarize(mean_hour = round(mean(order_hour_of_day), 2)) |> 
+    mutate(
+    order_dow = as.integer(order_dow),
+    order_dow = case_when(
+      order_dow == 0 ~ "Sunday",
+      order_dow == 1 ~ "Monday",
+      order_dow == 2 ~ "Tuesday",
+      order_dow == 3 ~ "Wednesday",
+      order_dow == 4 ~ "Thursday",
+      order_dow == 5 ~ "Friday",
+      order_dow == 6 ~ "Saturday"
+    ),
+order_dow = factor(order_dow,
+      levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+  )
 
+plot_ly(
+  data = mean_hour,
+  x = ~order_dow,
+  y = ~mean_hour,
+  color = ~product_name,
+  type = 'scatter',
+  mode = 'lines+markers',
+  text = ~paste(
+    "Product:", product_name,
+    "<br>Day:", order_dow,
+    "<br>Average Hour:", mean_hour
+  ),
+  hoverinfo = "text"
+) |>
+  layout(
+    title = "Average Order Hour by Day for Selected Products",
+    xaxis = list(title = "Day of Week", tickangle = -45),
+    yaxis = list(title = "Average Order Hour (24-hour format)"),
+    legend = list(title = list(text = "<b>Product</b>"))
+  )
 ```
 
 ### Chart C
 
 ```{r}
+instart_department = instacart |> 
+  group_by(department) |> 
+  summarise(
+    reorder_rate = mean(reordered, na.rm = TRUE),
+    .groups = "drop"
+  ) |> 
+  arrange(desc(reorder_rate))
+
+
+plot_ly(
+  data = instart_department,
+  x = ~reorder(as.factor(department), reorder_rate),
+  y = ~reorder_rate,
+  type = 'bar',
+  marker = list(color = ~reorder_rate, colorscale = 'Viridis')
+) |>
+  layout(
+    title = "Reorder Rate by Department",
+    xaxis = list(title = "Department", tickangle = -45),
+    yaxis = list(title = "Reorder Rate")
+  )
 
 ```
 
