@@ -6,6 +6,8 @@ output:
     vertical_layout: fill
 ---
 
+Go back to the [homepage](index.html)
+
 ```{r setup, include=FALSE}
 library(flexdashboard)
 library(tidyverse)
